@@ -2,6 +2,7 @@ version: "3.9"
 services:
   prometheus:
     image: prom/prometheus
+    user: root #bypasses security issues when trying to create files/folders
     ports:
       - "9090:9090"
     volumes:
@@ -17,7 +18,8 @@ services:
       - "./grafana/dashboards/:/var/lib/grafana/dashboards/"
       - "./grafana/defaults.ini:/usr/share/grafana/conf/defaults.ini"
   net_test:
-    build: .
+    # image: ghcr.io/slpixe/net-test:master useful for running on end server 
+    build: . # useful if have the full code on the end-device
     ports:
       - "2112:2112"
   # debug:
